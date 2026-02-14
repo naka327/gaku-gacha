@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>伏見ガク 配信ガチャ</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: radial-gradient(circle at top, #2a1f4f, #121212);
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 30px;
+  margin-bottom: 5px;
+}
+
+button {
+  background: linear-gradient(45deg, #7c4dff, #b388ff);
+  border: none;
+  padding: 16px 32px;
+  font-size: 20px;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: 0.2s;
+  box-shadow: 0 0 20px rgba(124,77,255,0.6);
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+#loading {
+  margin-top: 15px;
+  font-size: 18px;
+  opacity: 0.8;
+}
+
+#video-wrapper {
+  margin-top: 20px;
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+}
+
+#video-wrapper iframe {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+.badge {
+  display: inline-block;
+  padding: 8px 16px;
+  margin: 5px;
+  border-radius: 25px;
+  background: rgba(255,255,255,0.15);
+  font-size: 14px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🎰 伏見ガク 配信ガチャ</h1>
+<button onclick="drawRandom()">ガチャを回す</button>
+
+<div id="loading"></div>
+<div id="video-wrapper"></div>
+<div id="meta"></div>
+
+<script>
+
+const videos = [
+  { id: "dQw4w9WgXcQ", genre: "テスト", outfit: "テスト衣装", comment: "動作確認用" }
+];
+
+
+let lastVideoId = null;
+
+function drawRandom() {
+
+  document.getElementById("loading").innerText = "ガチャ回転中…";
+
+  setTimeout(() => {
+
+    let randomVideo;
+    do {
+      randomVideo = videos[Math.floor(Math.random() * videos.length)];
+    } while (videos.length > 1 && randomVideo.id === lastVideoId);
+
+    lastVideoId = randomVideo.id;
+
+    document.getElementById("loading").innerText =
+      "✨ 今日の伏見ガクはこれ！";
+
+    document.getElementById("video-wrapper").innerHTML =
+      `<iframe src="https://www.youtube.com/embed/${randomVideo.id}"
+       frameborder="0" allowfullscreen></iframe>`;
+
+    document.getElementById("meta").innerHTML =
+      `<div class="badge">🎮 ${randomVideo.genre}</div>
+       <div class="badge">🎽 ${randomVideo.outfit}</div>
+       <div style="margin-top:8px;">💬 ${randomVideo.comment}</div>`;
+
+  }, 700); // 演出の間
+
+}
+</script>
+
+</body>
+</html>
