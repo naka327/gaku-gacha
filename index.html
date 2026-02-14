@@ -182,20 +182,6 @@ button:hover::before {
 h1 {
   animation: glow 2.5s infinite ease-in-out;
 }
-.filter-area {
-  margin-bottom: 20px;
-}
-
-select {
-  padding: 10px 15px;
-  margin: 5px;
-  border-radius: 20px;
-  border: none;
-  font-weight: bold;
-}
-
-
-
 </style>
 </head>
 
@@ -209,18 +195,7 @@ select {
 <div id="loading"></div>
 <div id="video-wrapper"></div>
 <div id="meta"></div>
-<div class="filter-area">
-  <select id="filterType">
-    <option value="all">通常ガチャ</option>
-    <option value="hairstyle">髪型限定</option>
-    <option value="genre">ジャンル限定</option>
-  </select>
 
-  <select id="filterValue" style="display:none;"></select>
-</div>
-
-  <select id="filterValue"></select>
-</div>
 </div>
   
 <script>
@@ -230,34 +205,28 @@ let videos = [];
 async function loadSheet() {
   const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQNZRFV7f6MbC5-ZOvVy8VHofG1H9_0PGQbbaYi-nLOBVr3F-Roz47rPnvAU5yEWmfcEHODMT9-EMsV/pub?gid=0&single=true&output=csv";
 
-  const filterTypeEl = document.getElementById("filterType");
-const filterValueEl = document.getElementById("filterValue");
+  const response = await fetch(url);
+  const text = await response.text();
 
-filterTypeEl.addEventListener("change", updateFilterOptions);
+  const rows = text.split("\n").slice(1);
 
-function updateFilterOptions() {
+  videos = rows
+    .filter(row => row.trim() !== "")
+    .map(row => {
+      const cols = row.split(",");
 
-  const type = filterTypeEl.value;
+      const videoUrl = cols[0];
+      const videoId = videoUrl.split("v=")[1]?.split("&")[0];
 
-  if (type === "all") {
-    filterValueEl.style.display = "none";
-    return;
-  }
-
-  const uniqueValues = [...new Set(
-    videos.map(v => v[type]).filter(Boolean)
-  )];
-
-  filterValueEl.innerHTML = "";
-  filterValueEl.style.display = "inline-block";
-
-  uniqueValues.forEach(val => {
-    const option = document.createElement("option");
-    option.value = val;
-    option.textContent = val;
-    filterValueEl.appendChild(option);
-  });
-}
+      return {
+        id: videoId,
+        date: cols[1],
+        outfit: cols[2],
+        hairstyle: cols[3],
+        mode: cols[4],
+        genre: cols[5]
+      };
+    });
 }
 
 loadSheet();
@@ -277,7 +246,12 @@ if (videos.length === 0) {
   
   setTimeout(() => {
 
-    const randomVideo = getRandomVideo();
+    let randomVideo;
+    do {
+      randomVideo = videos[Math.floor(Math.random() * videos.length)];
+    } while (videos.length > 1 && randomVideo.id === lastVideoId);
+
+    lastVideoId = randomVideo.id;
 
     document.getElementById("loading").innerText =
       "🔥本日の当たり配信";
@@ -296,53 +270,6 @@ if (videos.length === 0) {
 
   }, 1000); // 演出の間
 
-  function getUniqueValues(key) {
-  return [...new Set(videos.map(v => v[key]).filter(Boolean))];
-}
-const filterTypeEl = document.getElementById("filterType");
-const filterValueEl = document.getElementById("filterValue");
-
-filterTypeEl.addEventListener("change", updateFilterOptions);
-
-function updateFilterOptions() {
-  const type = filterTypeEl.value;
-
-  filterValueEl.innerHTML = "";
-
-  if (type === "all") return;
-
-  const values = getUniqueValues(type);
-
-  values.forEach(val => {
-    const option = document.createElement("option");
-    option.value = val;
-    option.textContent = val;
-    filterValueEl.appendChild(option);
-  });
-}
-}
-  function getRandomVideo() {
-
- let pool = videos;
-
-const type = filterTypeEl.value;
-const value = filterValueEl.value;
-
-if (type !== "all" && value) {
-  pool = videos.filter(v => v[type] === value);
-}
-
-if (pool.length === 0) {
-  alert("該当データがありません");
-  return;
-}
-
-let randomVideo;
-do {
-  randomVideo = pool[Math.floor(Math.random() * pool.length)];
-} while (pool.length > 1 && randomVideo.id === lastVideoId);
-
-lastVideoId = randomVideo.id;
 }
 </script>
 
