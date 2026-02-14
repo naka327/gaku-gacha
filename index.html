@@ -210,11 +210,11 @@ select {
 <div id="video-wrapper"></div>
 <div id="meta"></div>
 <div class="filter-area">
-  <select id="filterType">
-    <option value="all">通常ガチャ</option>
-    <option value="hairstyle">髪型限定</option>
-    <option value="genre">ジャンル限定</option>
-  </select>
+ <select id="filterType">
+  <option value="all">通常ガチャ</option>
+  <option value="hairstyle">髪型限定</option>
+  <option value="genre">ジャンル限定</option>
+</select>
 
   <select id="filterValue"></select>
 </div>
@@ -316,27 +316,24 @@ function updateFilterOptions() {
 
   let pool = videos;
 
-  const type = document.getElementById("filterType")?.value;
-  const value = document.getElementById("filterValue")?.value;
+const type = document.getElementById("filterType").value;
 
-  if (type && type !== "all" && value) {
-    pool = videos.filter(v => v[type] === value);
-  }
+if (type !== "all") {
+  const value = prompt("どの種類にする？（正確に入力してね）");
+  pool = videos.filter(v => v[type] === value);
+}
 
-  if (pool.length === 0) {
-    alert("該当データがありません");
-    return;
-  }
+if (pool.length === 0) {
+  alert("該当データがありません");
+  return;
+}
 
-  let randomVideo;
+let randomVideo;
+do {
+  randomVideo = pool[Math.floor(Math.random() * pool.length)];
+} while (pool.length > 1 && randomVideo.id === lastVideoId);
 
-  do {
-    randomVideo = pool[Math.floor(Math.random() * pool.length)];
-  } while (pool.length > 1 && randomVideo.id === lastVideoId);
-
-  lastVideoId = randomVideo.id;
-
-  return randomVideo;
+lastVideoId = randomVideo.id;
 }
 </script>
 
