@@ -210,11 +210,14 @@ select {
 <div id="video-wrapper"></div>
 <div id="meta"></div>
 <div class="filter-area">
- <select id="filterType">
-  <option value="all">通常ガチャ</option>
-  <option value="hairstyle">髪型限定</option>
-  <option value="genre">ジャンル限定</option>
-</select>
+  <select id="filterType">
+    <option value="all">通常ガチャ</option>
+    <option value="hairstyle">髪型限定</option>
+    <option value="genre">ジャンル限定</option>
+  </select>
+
+  <select id="filterValue" style="display:none;"></select>
+</div>
 
   <select id="filterValue"></select>
 </div>
@@ -227,28 +230,34 @@ let videos = [];
 async function loadSheet() {
   const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQNZRFV7f6MbC5-ZOvVy8VHofG1H9_0PGQbbaYi-nLOBVr3F-Roz47rPnvAU5yEWmfcEHODMT9-EMsV/pub?gid=0&single=true&output=csv";
 
-  const response = await fetch(url);
-  const text = await response.text();
+  const filterTypeEl = document.getElementById("filterType");
+const filterValueEl = document.getElementById("filterValue");
 
-  const rows = text.split("\n").slice(1);
+filterTypeEl.addEventListener("change", updateFilterOptions);
 
-  videos = rows
-    .filter(row => row.trim() !== "")
-    .map(row => {
-      const cols = row.split(",");
+function updateFilterOptions() {
 
-      const videoUrl = cols[0];
-      const videoId = videoUrl.split("v=")[1]?.split("&")[0];
+  const type = filterTypeEl.value;
 
-      return {
-        id: videoId,
-        date: cols[1],
-        outfit: cols[2],
-        hairstyle: cols[3],
-        mode: cols[4],
-        genre: cols[5]
-      };
-    });
+  if (type === "all") {
+    filterValueEl.style.display = "none";
+    return;
+  }
+
+  const uniqueValues = [...new Set(
+    videos.map(v => v[type]).filter(Boolean)
+  )];
+
+  filterValueEl.innerHTML = "";
+  filterValueEl.style.display = "inline-block";
+
+  uniqueValues.forEach(val => {
+    const option = document.createElement("option");
+    option.value = val;
+    option.textContent = val;
+    filterValueEl.appendChild(option);
+  });
+}
 }
 
 loadSheet();
@@ -314,12 +323,12 @@ function updateFilterOptions() {
 }
   function getRandomVideo() {
 
-  let pool = videos;
+ let pool = videos;
 
-const type = document.getElementById("filterType").value;
+const type = filterTypeEl.value;
+const value = filterValueEl.value;
 
-if (type !== "all") {
-  const value = prompt("どの種類にする？（正確に入力してね）");
+if (type !== "all" && value) {
   pool = videos.filter(v => v[type] === value);
 }
 
