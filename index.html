@@ -47,6 +47,13 @@ button:active {
   border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 0 30px rgba(0,0,0,0.6);
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 56.25%; /* 16:9比率 */
+  height: 0;
 }
   
 #video-wrapper iframe {
@@ -137,10 +144,13 @@ if (videos.length === 0) {
       `<iframe src="https://www.youtube.com/embed/${randomVideo.id}"
        frameborder="0" allowfullscreen></iframe>`;
 
+
     document.getElementById("meta").innerHTML =
-      `<div class="badge">🎮 ${randomVideo.genre}</div>
-       <div class="badge">🎽 ${randomVideo.outfit}</div>
-       <div style="margin-top:8px;">💬 ${randomVideo.comment}</div>`;
+      `<div class="badge">📅 ${randomVideo.date}</div>
+       <div class="badge">🎮 ${randomVideo.genre}</div>
+       <div class="badge">👕 ${randomVideo.outfit}</div>
+       <div class="badge">💇 ${randomVideo.hairstyle}</div>
+       <div class="badge">🖥 ${randomVideo.mode}</div>`;
 
   }, 700); // 演出の間
 
