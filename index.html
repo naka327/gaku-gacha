@@ -9,26 +9,34 @@
 body {
   margin: 0;
   font-family: sans-serif;
-  background: radial-gradient(circle at top, #3b1e6d, #0d0d1a);
-  color: white;
+  background: linear-gradient(135deg, #ffecd2, #fcb69f 40%, #a1c4fd);
+  color: #333;
   text-align: center;
   padding: 20px;
 }
 
 h1 {
   font-size: 30px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+  color: #ff6f00;
 }
 
 button {
-  background: linear-gradient(45deg, #ff9800, #ff5722);
+  background: linear-gradient(45deg, #ff6f00, #ff9800);
+  color: white;
   border: none;
-  padding: 16px 32px;
+  padding: 16px 36px;
   font-size: 20px;
+  font-weight: bold;
   border-radius: 40px;
   cursor: pointer;
   transition: 0.2s;
-  box-shadow: 0 0 25px rgba(255, 87, 34, 0.8);
+  box-shadow: 0 8px 20px rgba(255, 111, 0, 0.4);
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(255, 111, 0, 0.5);
 }
 
 button:active {
@@ -44,15 +52,21 @@ button:active {
 
 #video-wrapper {
   margin-top: 30px;
-  width: 50vw;          /* 画面幅の50% */
-  max-width: 720px;     /* PCで大きくなりすぎない制限 */
-  aspect-ratio: 16 / 9; /* 正確な比率 */
+  width: 50vw;          /* PC用 */
+  max-width: 720px;
+  aspect-ratio: 16 / 9;
   margin-left: auto;
   margin-right: auto;
   border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 0 30px rgba(0,0,0,0.6);
-  position: relative;
+}
+
+/* スマホ用 */
+@media (max-width: 768px) {
+  #video-wrapper {
+    width: 95vw;        /* スマホではほぼ横幅いっぱい */
+  }
 }
   
 #video-wrapper iframe {
@@ -66,8 +80,11 @@ button:active {
   padding: 8px 16px;
   margin: 5px;
   border-radius: 25px;
-  background: rgba(255,255,255,0.15);
+  background: rgba(255, 111, 0, 0.15);
+  color: #ff6f00;
   font-size: 14px;
+  font-weight: bold;
+}
 
 
   #meta {
@@ -88,7 +105,7 @@ button:active {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-}
+
 </style>
 </head>
 
