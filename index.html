@@ -25,33 +25,42 @@ body {
 
 h1 {
   font-family: 'Rampart One', cursive;
-  font-size: 34px;
+  font-size: clamp(20px, 5vw, 34px);
+  white-space: nowrap;
   margin-bottom: 15px;
   color: #ff6f00;
   letter-spacing: 2px;
+  text-shadow:
+    0 0 8px rgba(255,111,0,0.6),
+    2px 2px 0 #fff,
+    4px 4px 0 #ffb300;
 }
 
 button {
-  background: linear-gradient(45deg, #ff6f00, #ff9800);
+  background: linear-gradient(180deg, #ff9800, #f57c00);
+  border: 3px solid #fff;
   color: white;
-  border: none;
-  padding: 16px 36px;
+  padding: 18px 40px;
   font-size: 20px;
   font-weight: bold;
-  border-radius: 40px;
+  border-radius: 50px;
   cursor: pointer;
   transition: 0.2s;
-  box-shadow: 0 8px 20px rgba(255, 111, 0, 0.4);
+  box-shadow:
+    0 6px 0 #e65100,
+    0 10px 20px rgba(0,0,0,0.2);
 }
-
 button:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 25px rgba(255, 111, 0, 0.5);
 }
-
 button:active {
-  transform: scale(0.95);
+  transform: translateY(4px);
+  box-shadow:
+    0 2px 0 #e65100,
+    0 5px 10px rgba(0,0,0,0.2);
 }
+
 
 #loading {
   margin-top: 15px;
