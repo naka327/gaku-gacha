@@ -131,6 +131,30 @@ button:active {
   max-width: 1100px;
   margin: 0 auto;
 }
+
+  .main-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.line {
+  height: 4px;
+  width: 40px;
+  background: linear-gradient(to right, #ff9800, #ff5722);
+  border-radius: 4px;
+}
+  .line {
+  box-shadow: 0 0 8px rgba(255,140,0,0.6);
+}
+
+  .result-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 25px 0 15px;
+  color: #e65100;
+}
   
 </style>
 </head>
@@ -139,7 +163,11 @@ button:active {
 
 <div class="container">
 
-<h1>🎰 伏見ガク 配信ガチャ</h1>
+<h1 class="main-title">
+  <span class="line"></span>
+  🎰 伏見ガク 配信ガチャ
+  <span class="line"></span>
+</h1>
 <button onclick="drawRandom()">ガチャを回す</button>
 
 <div id="loading"></div>
@@ -204,7 +232,7 @@ if (videos.length === 0) {
     lastVideoId = randomVideo.id;
 
     document.getElementById("loading").innerText =
-      "✨ 今日の伏見ガクはこれ！";
+      "🔥本日の当たり配信";
 
     document.getElementById("video-wrapper").innerHTML =
       `<iframe src="https://www.youtube.com/embed/${randomVideo.id}"
