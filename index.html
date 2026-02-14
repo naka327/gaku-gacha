@@ -48,11 +48,11 @@ button:active {
   overflow: hidden;
   box-shadow: 0 0 30px rgba(0,0,0,0.6);
   position: relative;
-  width: 100%;
-  max-width: 800px;
+  width: 90%;
+  max-width: 640px;   /* ←小さくする */
   margin-left: auto;
   margin-right: auto;
-  padding-bottom: 56.25%; /* 16:9比率 */
+  padding-bottom: 56.25%; /* 16:9固定 */
   height: 0;
 }
   
@@ -71,6 +71,26 @@ button:active {
   border-radius: 25px;
   background: rgba(255,255,255,0.15);
   font-size: 14px;
+
+
+  #meta {
+  margin-top: 20px;
+}
+
+.spinner {
+  margin: 20px auto;
+  width: 50px;
+  height: 50px;
+  border: 6px solid rgba(255,255,255,0.2);
+  border-top: 6px solid #ff9800;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 }
 </style>
 </head>
@@ -126,8 +146,10 @@ if (videos.length === 0) {
   alert("データ読み込み中です");
   return;
 }
-  document.getElementById("loading").innerText = "ガチャ回転中…";
-
+  document.getElementById("loading").innerHTML =
+  `<div class="spinner"></div>
+   <div>ガチャ回転中…</div>`;
+  
   setTimeout(() => {
 
     let randomVideo;
@@ -152,7 +174,7 @@ if (videos.length === 0) {
        <div class="badge">💇 ${randomVideo.hairstyle}</div>
        <div class="badge">🖥 ${randomVideo.mode}</div>`;
 
-  }, 700); // 演出の間
+  }, 1000); // 演出の間
 
 }
 </script>
