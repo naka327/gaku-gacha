@@ -79,15 +79,46 @@ button:active {
 
 <script>
 
-const videos = [
-  { id: "dQw4w9WgXcQ", genre: "テスト", outfit: "テスト衣装", comment: "動作確認用" }
-];
+let videos = [];
+
+async function loadSheet() {
+  const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQNZRFV7f6MbC5-ZOvVy8VHofG1H9_0PGQbbaYi-nLOBVr3F-Roz47rPnvAU5yEWmfcEHODMT9-EMsV/pub?gid=0&single=true&output=csv";
+
+  const response = await fetch(url);
+  const text = await response.text();
+
+  const rows = text.split("\n").slice(1);
+
+  videos = rows
+    .filter(row => row.trim() !== "")
+    .map(row => {
+      const cols = row.split(",");
+
+      const videoUrl = cols[0];
+      const videoId = videoUrl.split("v=")[1]?.split("&")[0];
+
+      return {
+        id: videoId,
+        date: cols[1],
+        outfit: cols[2],
+        hairstyle: cols[3],
+        mode: cols[4],
+        genre: cols[5]
+      };
+    });
+}
+
+loadSheet();
 
 
 let lastVideoId = null;
 
 function drawRandom() {
-
+  
+if (videos.length === 0) {
+  alert("データ読み込み中です");
+  return;
+}
   document.getElementById("loading").innerText = "ガチャ回転中…";
 
   setTimeout(() => {
