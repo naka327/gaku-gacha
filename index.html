@@ -182,6 +182,20 @@ button:hover::before {
 h1 {
   animation: glow 2.5s infinite ease-in-out;
 }
+.filter-area {
+  margin-bottom: 20px;
+}
+
+select {
+  padding: 10px 15px;
+  margin: 5px;
+  border-radius: 20px;
+  border: none;
+  font-weight: bold;
+}
+
+
+
 </style>
 </head>
 
@@ -195,7 +209,15 @@ h1 {
 <div id="loading"></div>
 <div id="video-wrapper"></div>
 <div id="meta"></div>
+<div class="filter-area">
+  <select id="filterType">
+    <option value="all">通常ガチャ</option>
+    <option value="hairstyle">髪型限定</option>
+    <option value="genre">ジャンル限定</option>
+  </select>
 
+  <select id="filterValue"></select>
+</div>
 </div>
   
 <script>
@@ -246,12 +268,7 @@ if (videos.length === 0) {
   
   setTimeout(() => {
 
-    let randomVideo;
-    do {
-      randomVideo = videos[Math.floor(Math.random() * videos.length)];
-    } while (videos.length > 1 && randomVideo.id === lastVideoId);
-
-    lastVideoId = randomVideo.id;
+    const randomVideo = getRandomVideo();
 
     document.getElementById("loading").innerText =
       "🔥本日の当たり配信";
@@ -270,6 +287,56 @@ if (videos.length === 0) {
 
   }, 1000); // 演出の間
 
+  function getUniqueValues(key) {
+  return [...new Set(videos.map(v => v[key]).filter(Boolean))];
+}
+const filterTypeEl = document.getElementById("filterType");
+const filterValueEl = document.getElementById("filterValue");
+
+filterTypeEl.addEventListener("change", updateFilterOptions);
+
+function updateFilterOptions() {
+  const type = filterTypeEl.value;
+
+  filterValueEl.innerHTML = "";
+
+  if (type === "all") return;
+
+  const values = getUniqueValues(type);
+
+  values.forEach(val => {
+    const option = document.createElement("option");
+    option.value = val;
+    option.textContent = val;
+    filterValueEl.appendChild(option);
+  });
+}
+}
+  function getRandomVideo() {
+
+  let pool = videos;
+
+  const type = document.getElementById("filterType")?.value;
+  const value = document.getElementById("filterValue")?.value;
+
+  if (type && type !== "all" && value) {
+    pool = videos.filter(v => v[type] === value);
+  }
+
+  if (pool.length === 0) {
+    alert("該当データがありません");
+    return;
+  }
+
+  let randomVideo;
+
+  do {
+    randomVideo = pool[Math.floor(Math.random() * pool.length)];
+  } while (pool.length > 1 && randomVideo.id === lastVideoId);
+
+  lastVideoId = randomVideo.id;
+
+  return randomVideo;
 }
 </script>
 
