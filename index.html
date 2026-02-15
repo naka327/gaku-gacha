@@ -314,14 +314,14 @@ if (videos.length === 0) {
       `<div class="badge">📅 ${randomVideo.date}</div>
        <div class="badge">🎮 ${randomVideo.genre}</div>
        <div class="badge">👕 ${randomVideo.outfit}</div>
-       <div class="badge">💇 ${randomVideo.hairstyle}</div>
+       <span class="badge" title="動画でメインに使っている髪型です">💇 ${randomVideo.hairstyle}</span>
        <div class="badge">🖥 ${randomVideo.mode}</div>`;
 
   }, 1000); // 演出の間
   
 function triggerRainbowBackground() {
 
-  if (Math.random() < 0.5) {
+  if (Math.random() < 0.01) {
 
     document.body.style.background =
       "linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet)";
