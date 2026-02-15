@@ -106,7 +106,15 @@ button:hover::before {
   margin-right: auto;
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 0 25px rgba(0,0,0,0.2);
+  box-shadow: none;
+  transition: 0.4s;
+}
+
+#video-wrapper.active {
+  box-shadow:
+    0 0 10px #ff9800,
+    0 0 20px #ff9800,
+    0 0 40px #ff5722;
 }
 
 @media (max-width: 768px) {
@@ -295,6 +303,9 @@ if (videos.length === 0) {
     document.getElementById("video-wrapper").innerHTML =
       `<iframe src="https://www.youtube.com/embed/${randomVideo.id}"
        frameborder="0" allowfullscreen></iframe>`;
+
+    document.getElementById("video-wrapper")
+  .classList.add("active");
 
 
     document.getElementById("meta").innerHTML =
