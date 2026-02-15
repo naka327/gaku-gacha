@@ -336,7 +336,13 @@ if (videos.length === 0) {
 
    document.getElementById("meta").innerHTML =
   `<div class="badge">📅 ${randomVideo.date}</div>
-   <div class="badge">🎮 ${randomVideo.genre}</div>
+   
+   <div class="badge tooltip">
+     🎮 ${randomVideo.genre}
+     <div class="tooltip-text">
+       ジャンルのその他には、案件配信・大会・大型イベント・ショート動画を含みます
+     </div>
+   </div>
    
    <div class="badge tooltip">
      👕 ${randomVideo.outfit}
