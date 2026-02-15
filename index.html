@@ -209,26 +209,29 @@ h1 {
 .tooltip-text {
   visibility: hidden;
   opacity: 0;
-  width: 200px;
-  background-color: #333;
-  color: #fff;
-  text-align: center;
-  padding: 6px;
-  border-radius: 6px;
   position: absolute;
-  bottom: 130%;
+  top: 120%;   /* ← 下に表示 */
   left: 50%;
   transform: translateX(-50%);
-  transition: opacity 0.3s;
+  width: 220px;
+  background: #333;
+  color: #fff;
+  padding: 8px;
+  border-radius: 8px;
   font-size: 12px;
-  z-index: 10;
+  text-align: center;
+  transition: 0.25s;
+  z-index: 20;
 }
 
 .tooltip:hover .tooltip-text {
   visibility: visible;
   opacity: 1;
 }
-
+#meta {
+  margin-top: 25px;
+  margin-bottom: 60px;  /* ← これ追加すると余裕ができる */
+}
 
 
 
@@ -336,15 +339,25 @@ if (videos.length === 0) {
   .classList.add("active");
 
 
-    document.getElementById("meta").innerHTML =
-      `<div class="badge">📅 ${randomVideo.date}</div>
-       <div class="badge">🎮 ${randomVideo.genre}</div>
-       <div class="badge">👕 ${randomVideo.outfit}</div>
-       <div class="badge">💇 ${randomVideo.hairstyle}</div>
-       <span class="badge tooltip">💇 ${randomVideo.hairstyle}
-  <span class="tooltip-text">動画でメインに使っている髪型です</span>
-</span>
-       <div class="badge">🖥 ${randomVideo.mode}</div>`;
+   document.getElementById("meta").innerHTML =
+  `<div class="badge">📅 ${randomVideo.date}</div>
+   <div class="badge">🎮 ${randomVideo.genre}</div>
+   
+   <div class="badge tooltip">
+     👕 ${randomVideo.outfit}
+     <div class="tooltip-text">
+       動画でメインに使っている服装です
+     </div>
+   </div>
+
+   <div class="badge tooltip">
+     💇 ${randomVideo.hairstyle}
+     <div class="tooltip-text">
+       動画でメインに使っている髪型です
+     </div>
+   </div>
+
+   <div class="badge">🖥 ${randomVideo.mode}</div>`;
 
   }, 1000); // 演出の間
   
