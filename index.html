@@ -201,7 +201,33 @@ h1 {
   margin-top: 40px;
   text-align: center;
 }
+.tooltip {
+  position: relative;
+  cursor: help;
+}
 
+.tooltip-text {
+  visibility: hidden;
+  opacity: 0;
+  width: 200px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 6px;
+  border-radius: 6px;
+  position: absolute;
+  bottom: 130%;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: opacity 0.3s;
+  font-size: 12px;
+  z-index: 10;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
 
 
 
@@ -314,7 +340,10 @@ if (videos.length === 0) {
       `<div class="badge">📅 ${randomVideo.date}</div>
        <div class="badge">🎮 ${randomVideo.genre}</div>
        <div class="badge">👕 ${randomVideo.outfit}</div>
-       <span class="badge" title="動画でメインに使っている髪型です">💇 ${randomVideo.hairstyle}</span>
+       <div class="badge">💇 ${randomVideo.hairstyle}</div>
+       <span class="badge tooltip">💇 ${randomVideo.hairstyle}
+  <span class="tooltip-text">動画でメインに使っている髪型です</span>
+</span>
        <div class="badge">🖥 ${randomVideo.mode}</div>`;
 
   }, 1000); // 演出の間
