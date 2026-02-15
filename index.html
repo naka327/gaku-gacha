@@ -225,7 +225,7 @@ h1 {
   
 <script>
 
-  
+  let rainbowTimeout = null;
   
 let videos = [];
 
@@ -277,6 +277,8 @@ loadSheet();
 let lastVideoId = null;
 
 function drawRandom() {
+
+  resetBackground();
   
 if (videos.length === 0) {
   alert("データ読み込み中です");
@@ -319,7 +321,7 @@ if (videos.length === 0) {
   
 function triggerRainbowBackground() {
 
-  if (Math.random() < 0.5) { // 1%
+  if (Math.random() < 0.5) {
 
     document.body.style.background =
       "linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet)";
@@ -329,9 +331,30 @@ function triggerRainbowBackground() {
 
     document.getElementById("loading").innerText =
       "🌈🌈🌈🌈🌈🌈🌈";
+
+    // 15秒後に自動で戻す
+    rainbowTimeout = setTimeout(resetBackground, 15000);
   }
 }
+function resetBackground() {
 
+  document.body.style.background = `
+    linear-gradient(
+      160deg,
+      #fff8e1 0%,
+      #ffe082 35%,
+      #ffb74d 65%,
+      #4fc3f7 100%
+    )
+  `;
+
+  document.body.style.animation = "";
+
+  if (rainbowTimeout) {
+    clearTimeout(rainbowTimeout);
+    rainbowTimeout = null;
+  }
+}
 
   
 }
