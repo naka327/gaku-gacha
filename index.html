@@ -182,6 +182,18 @@ button:hover::before {
 h1 {
   animation: glow 2.5s infinite ease-in-out;
 }
+
+@keyframes rainbowMove {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+
+
+
+
+
+
 </style>
 </head>
 
@@ -200,6 +212,8 @@ h1 {
   
 <script>
 
+  
+  
 let videos = [];
 
 async function loadSheet() {
@@ -229,6 +243,21 @@ async function loadSheet() {
     });
 }
 
+function getRandomTitle() {
+
+  const titles = [
+    "🔥激アツ",
+    "✌️ピーッス！",
+    "刻むぜ最高のピース",
+    "行こうぜ、先へ！！",
+    "７７７",
+    "うおおおおおおお！"
+  ];
+
+  return titles[Math.floor(Math.random() * titles.length)];
+}
+
+  
 loadSheet();
 
 
@@ -253,8 +282,10 @@ if (videos.length === 0) {
 
     lastVideoId = randomVideo.id;
 
+    triggerRainbowBackground();
+
     document.getElementById("loading").innerText =
-      "🔥本日の当たり配信";
+  getRandomTitle();
 
     document.getElementById("video-wrapper").innerHTML =
       `<iframe src="https://www.youtube.com/embed/${randomVideo.id}"
@@ -269,7 +300,24 @@ if (videos.length === 0) {
        <div class="badge">🖥 ${randomVideo.mode}</div>`;
 
   }, 1000); // 演出の間
+  
+function triggerRainbowBackground() {
 
+  if (Math.random() < 0.01) { // 1%
+
+    document.body.style.background =
+      "linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet)";
+
+    document.body.style.backgroundSize = "400% 400%";
+    document.body.style.animation = "rainbowMove 5s linear infinite";
+
+    document.getElementById("loading").innerText =
+      "🌈🌈🌈🌈🌈🌈🌈";
+  }
+}
+
+
+  
 }
 </script>
 
