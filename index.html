@@ -169,10 +169,8 @@ button:hover::before {
 
 @media (max-width: 480px) {
   .tooltip-text {
-    left: 0;
-    transform: none;
-    width: max-content;
-    max-width: 80vw;
+    left: 50vw;
+    transform: translateX(-50%);
   }
 }
 .badge {
@@ -263,18 +261,22 @@ h1 {
   visibility: hidden;
   opacity: 0;
   position: absolute;
-  top: 120%;   /* ← 下に表示 */
+  top: 120%;
   left: 50%;
   transform: translateX(-50%);
-  width: 220px;
+  
+  width: max-content;
+  max-width: 85vw;      /* ← 画面幅以内に制限 */
+  word-break: break-word;
+
   background: #333;
   color: #fff;
-  padding: 8px;
+  padding: 8px 10px;
   border-radius: 8px;
   font-size: 12px;
   text-align: center;
   transition: 0.25s;
-  z-index: 20;
+  z-index: 50;
 }
 
 .tooltip:hover .tooltip-text {
