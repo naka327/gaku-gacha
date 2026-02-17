@@ -3,7 +3,8 @@
 <head>
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@800&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&display=swap" rel="stylesheet">
-<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>伏見ガク 配信ガチャ</title>
 
@@ -97,17 +98,15 @@ button:hover::before {
 }
 
 #loading {
-  font-family: 'M PLUS Rounded 1c', sans-serif;
-  font-size: clamp(20px, 3.5vw, 26px);
-  font-weight: 800;
-  letter-spacing: 1px;
+  margin-top: 10px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: clamp(18px, 2.8vw, 22px);
+  font-weight: 700;
+  letter-spacing: 0.5px;
 
   color: #111;
 
-  text-shadow:
-    0 1px 0 rgba(255,255,255,0.6);
-
-  transition: 0.2s ease;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.6);
 }
 
 #video-wrapper {
@@ -355,7 +354,7 @@ if (videos.length === 0) {
    <div class="badge tooltip">
      🎮 ${randomVideo.genre}
      <div class="tooltip-text">
-       ジャンルのその他には、案件配信・大会・大型イベント・ショート動画を含みます
+       ジャンルのその他には案件配信・大会・大型イベントを含みます
      </div>
    </div>
    
