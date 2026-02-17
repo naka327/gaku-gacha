@@ -170,12 +170,7 @@ button:hover::before {
   
 }
 
-@media (max-width: 480px) {
-  .tooltip-text {
-    left: 50vw;
-    transform: translateX(-50%);
-  }
-}
+
 .badge {
   display: inline-block;
   padding: 8px 16px;
@@ -186,12 +181,11 @@ button:hover::before {
   font-weight: bold;
   font-size: 14px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  .disclaimer {
+}
+  
+.disclaimer {
     margin-top: 18px;
   }
-
-}
-
 
   #meta {
   margin-top: 25px;
@@ -267,11 +261,9 @@ h1 {
   top: 120%;
   left: 50%;
   transform: translateX(-50%);
-
   width: max-content;
-  max-width: calc(100vw - 40px); /* ← 画面端から余白を取る */
+  max-width: calc(100vw - 40px);
   word-break: break-word;
-
   background: #333;
   color: #fff;
   padding: 8px 12px;
