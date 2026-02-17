@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&display=swap" rel="stylesheet">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>伏見ガク 配信ガチャ</title>
@@ -96,9 +97,17 @@ button:hover::before {
 }
 
 #loading {
-  margin-top: 15px;
-  font-size: 18px;
-  opacity: 0.8;
+  margin-top: 20px;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #e65100;
+
+  text-shadow: 
+    0 2px 0 rgba(0,0,0,0.15);
+
+  transition: 0.2s ease;
 }
 
 
@@ -288,12 +297,14 @@ async function loadSheet() {
 function getRandomTitle() {
 
   const titles = [
-    "🔥激アツ",
-    "✌️ピーッス！",
-    "刻むぜ最高のピース",
-    "行こうぜ、先へ！！",
-    "⭐️７７７",
-    "うおおおおおおお！"
+    "🔥 激アツ配信",
+    "✌️ ピースな時間",
+    "🎵 刻むぜ、最高のピース",
+    "🚀 行こうぜ、先へ！！",
+    "⭐ ７７７",
+    "💥 うおおおおおお！"
+    "エンジョイしてってくださいよ！"
+    "かっこよろしい"
   ];
 
   return titles[Math.floor(Math.random() * titles.length)];
