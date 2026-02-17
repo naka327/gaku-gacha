@@ -255,10 +255,12 @@ h1 {
 }
 
 .tooltip-text {
+  visibility: hidden;
+  opacity: 0;
+
   position: absolute;
   top: 120%;
   left: 0;
-  transform: none;
 
   width: max-content;
   max-width: min(280px, calc(100vw - 32px));
@@ -280,17 +282,15 @@ h1 {
   z-index: 50;
 }
 
-/* 右側にはみ出したときだけ反転 */
 .tooltip-text.flip {
   left: auto;
   right: 0;
 }
+
 .tooltip:hover .tooltip-text {
   visibility: visible;
   opacity: 1;
 }
-
-
 
 </style>
 </head>
@@ -469,28 +469,23 @@ function resetBackground() {
 }  
 }
 
-function adjustTooltipPosition(tooltip) {
+document.addEventListener("mouseover", function(e) {
+  const tooltip = e.target.closest(".tooltip");
+  if (!tooltip) return;
+
   const tip = tooltip.querySelector(".tooltip-text");
   if (!tip) return;
 
-  // 一旦リセット
-  tip.classList.remove("flip");
+  // 表示後に1フレーム待ってから計測
+  requestAnimationFrame(() => {
+    tip.classList.remove("flip");
 
-  const rect = tip.getBoundingClientRect();
-  const overflowRight = rect.right > window.innerWidth - 8;
-
-  if (overflowRight) {
-    tip.classList.add("flip");
-  }
-}
-
-// hover時だけ判定（子要素ではなく親.tooltipに反応）
-document.addEventListener("mouseenter", function(e) {
-  const tooltip = e.target.closest(".tooltip");
-  if (!tooltip) return;
-  adjustTooltipPosition(tooltip);
-}, true);
-
+    const rect = tip.getBoundingClientRect();
+    if (rect.right > window.innerWidth - 8) {
+      tip.classList.add("flip");
+    }
+  });
+});
   
 </script>
 <footer class="disclaimer">
